@@ -1,8 +1,12 @@
 import dotenv from 'dotenv';
 
-// Load environment variables
+// Load environment variables from .env file
 dotenv.config();
 
+/**
+ * Application Configuration
+ * Centralized configuration management for the AI Assistant MCP system
+ */
 export const config = {
   // Server configuration
   port: parseInt(process.env.SERVER_PORT || '3000'),

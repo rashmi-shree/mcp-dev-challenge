@@ -1,155 +1,132 @@
-# Backend Node.js Developer Challenge: Real-Time AI Assistant with MCP Integration
+# 🤖 Real-Time AI Assistant with MCP Integration
 
-## Overview
-Build a real-time AI assistant system that uses MCP. This challenge combines Socket.IO for real-time communication, the Model Context Protocol (MCP) for extensible AI functionality, and OpenAI's powerful language models.
+A comprehensive implementation of a real-time AI assistant system that integrates Socket.IO, OpenAI, and MongoDB through the Model Context Protocol (MCP) for property management.
 
-You'll create a simple chat system where users can interact with an AI assistant through a terminal interface. The AI assistant will be enhanced with MCP server capabilities, allowing it to perform practical tasks like database operations, file management, or API integrations. The recommended implementation focuses on property management with MongoDB, but you're encouraged to explore other MCP server options that interest you.
+## 🎯 Project Overview
 
-This challenge tests your ability to integrate multiple technologies, design clean architectures, and build production-ready Node.js applications with proper error handling, logging, and testing.
+This system demonstrates a complete real-time AI assistant architecture that:
+- Processes natural language queries through OpenAI
+- Manages property and tenant data via MongoDB
+- Uses MCP (Model Context Protocol) for extensible AI functionality
+- Provides real-time communication through Socket.IO
+- Offers a terminal-based chat interface
 
-## Challenge Components
+## 🏗️ Architecture
 
-### 1. Terminal Chat Client (Socket.IO Client)
-Create a Socket.IO client that:
-- Reads user input from `stdin`
-- Sends messages to the Socket.IO server
-- Displays server responses to `stdout`
-- Handles connection states and reconnection logic
-- Provides a clean terminal-based chat interface
-
-### 2. Socket.IO Server
-Implement a Socket.IO server that:
-- Handles real-time connection from the client
-- Processes incoming messages
-- Manages message history for the session
-- Implements proper error handling and logging
-
-### 3. AI Assistant (MCP Client)
-Build an MCP client that:
-- Integrates with OpenAI API
-- Processes user messages and generates contextual responses
-- Implements conversation memory and context management
-- Uses basic MCP protocol structure for AI communication
-
-### 4. MCP Server Integration
-Choose and integrate an MCP server that extends the AI assistant's capabilities. Options include:
-
-#### Option A: MongoDB MCP Server (Recommended)
-Create or integrate a MongoDB MCP server for property management:
-- Performs CRUD operations on MongoDB collections
-- Manages property and resident data
-- Can be imported from existing MCP server packages or built from scratch
-
-#### Option B: Alternative MCP Servers
-Feel free to explore other MCP servers such as:
-- File system operations
-- Web scraping capabilities
-- Database connectors (PostgreSQL, SQLite, etc.)
-- API integration servers
-- Custom business logic servers
-
-The choice of MCP server should demonstrate practical integration and add meaningful functionality to the AI assistant.
-
-## Technical Requirements
-
-### Core Technologies
-- **Node.js** (v18+)
-- **Socket.IO** (client & server)
-- **MongoDB**
-- **Model Context Protocol (MCP)**
-- **TypeScript** (preferred) or JavaScript
-
-### Architecture Requirements
-- Modular, clean code structure
-- Proper error handling and logging
-- Environment-based configuration
-- Unit tests for critical components
-
-## Example Implementation: Property Management System
-
-### MongoDB Schema Examples
-
-#### Properties Collection
-```javascript
-{
-  _id: ObjectId,
-  propertyId: "PROP-001",
-  address: {
-    street: "123 High Street",
-    city: "Manchester",
-    county: "Greater Manchester",
-    postcode: "M1 2AB",
-    country: "UK"
-  },
-  type: "flat", // flat, house, maisonette, studio, etc.
-  details: {
-    bedrooms: 2,
-    bathrooms: 1,
-    receptionRooms: 1,
-    squareMetres: 75,
-    furnished: false,
-    petsAllowed: true,
-    parking: "allocated space"
-  },
-  rent: {
-    monthlyAmount: 1800,
-    currency: "GBP",
-    deposit: 2700, // 1.5 months rent
-    billsIncluded: ["water", "council tax"]
-  },
-  availability: {
-    status: "available", // available, let, maintenance
-    availableFrom: ISODate("2025-08-01"),
-    tenancyTerms: ["12 months AST", "6 months short let"]
-  },
-  amenities: ["communal garden", "gym", "concierge", "balcony"],
-  createdAt: ISODate,
-  updatedAt: ISODate
-}
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Terminal      │    │   AI Assistant  │    │    MongoDB      │
+│   Client        │◄──►│   Server        │◄──►│   Database      │
+│                 │    │                 │    │                 │
+│ • Chat Interface│    │ • Socket.IO     │    │ • Properties    │
+│ • User Input    │    │ • OpenAI API    │    │ • Residents     │
+│ • Real-time     │    │ • MCP Client    │    │ • Sample Data   │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-#### Residents Collection
-```javascript
-{
-  _id: ObjectId,
-  residentId: "RES-001",
-  personalInfo: {
-    firstName: "James",
-    lastName: "Wilson",
-    email: "james.wilson@email.co.uk",
-    mobile: "+44 7700 900123",
-    dateOfBirth: ISODate("1990-05-15")
-  },
-  currentTenancy: {
-    propertyId: "PROP-001",
-    tenancyStart: ISODate("2025-01-01"),
-    tenancyEnd: ISODate("2025-12-31"),
-    monthlyRent: 1800,
-    deposit: 2700,
-    status: "active", // active, expired, terminated
-    tenancyType: "AST" // Assured Shorthold Tenancy
-  },
-  emergencyContact: {
-    name: "Sarah Wilson",
-    relationship: "partner",
-    mobile: "+44 7700 900124"
-  },
-  documents: [
-    {
-      type: "tenancy_agreement",
-      url: "/documents/tenancy_001.pdf",
-      uploadedAt: ISODate
-    },
-    {
-      type: "right_to_rent",
-      url: "/documents/rtr_001.pdf",
-      uploadedAt: ISODate
-    }
-  ],
-  notes: ["Excellent tenant", "Always pays rent on time", "Very tidy"],
-  createdAt: ISODate,
-  updatedAt: ISODate
-}
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+
+- MongoDB Community Edition
+- OpenAI API key
+
+### Installation & Setup
+
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Configure environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env and add your OpenAI API key
+   ```
+
+3. **Start MongoDB**
+   ```bash
+   brew services start mongodb-community
+   ```
+
+4. **Build the project**
+   ```bash
+   npm run build
+   ```
+
+### Running the Application
+
+**Option 1: Separate terminals (recommended for development)**
+```bash
+# Terminal 1 - Start the server
+npm run dev:server
+
+# Terminal 2 - Start the client
+npm run dev:client
+```
+
+**Option 2: Combined (single terminal)**
+```bash
+npm run dev
+```
+
+### Verification
+
+To verify everything is working:
+
+1. **Check Node.js version:** `node --version` (should be 18+)
+2. **Check MongoDB status:** `brew services list | grep mongodb`
+3. **Test build:** `npm run build`
+4. **Check ports:** Make sure port 3001 is available
+
+## 💬 Usage Examples
+
+Once both server and client are running, try these natural language queries:
+
+### Property Search
+```
+"Show me all available 2-bedroom flats under £2000"
+"Find properties in Manchester"
+"List flats that allow pets"
+```
+
+### Tenant Management
+```
+"Who is the current tenant of PROP-001?"
+"Find tenant named James Wilson"
+"Show all active residents"
+```
+
+### Property Creation
+```
+"Add a new property at 999 Oak Street, 3 bedrooms, £2500/month"
+"Create property at 456 Pine Avenue, 1 bedroom flat, £1200 rent"
+```
+
+## 🗄️ Database
+
+The system automatically creates sample data:
+- **3 Properties**: PROP-001 (Manchester), PROP-002 (London), PROP-003 (Edinburgh)
+- **1 Resident**: James Wilson (tenant of PROP-001)
+
+### MongoDB Access
+- **Connection**: `mongodb://localhost:27017`
+- **Database**: `property_management`
+- **Collections**: `properties`, `residents`
+
+Use MongoDB Compass for visual database exploration.
+
+## 🛠️ Development
+
+### Project Structure
+```
+src/
+├── server/           # Socket.IO server implementation
+├── client/           # Terminal client interface
+├── mcp-client/       # AI assistant and MCP client
+├── mcp-server/       # MongoDB MCP server
+├── shared/           # Shared types and utilities
+└── tests/           # Test files
 ```
 
 ### Example Conversation Flow
@@ -239,3 +216,43 @@ Feel free to:
 - ✅ Start from scratch if you prefer your own approach
 
 **What matters most**: Your final solution should demonstrate the core requirements and showcase your backend development skills.
+
+## 🧪 Testing
+
+The system includes comprehensive test coverage for all major components:
+
+### Running Tests
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run specific test file
+npm test -- src/tests/types.test.ts
+```
+
+### Test Coverage
+- **Unit Tests**: Individual component testing
+- **Integration Tests**: Component interaction testing  
+- **Type Safety Tests**: TypeScript interface validation
+- **Configuration Tests**: Environment setup validation
+
+### Test Files
+```
+src/tests/
+├── setup.ts              # Test configuration and mocks
+├── types.test.ts          # Type definitions testing
+├── config.test.ts         # Configuration testing
+├── ai-assistant.test.ts   # AI Assistant functionality
+├── mcp-client.test.ts     # MCP Client testing
+└── mcp-server.test.ts     # MongoDB MCP Server testing
+```
+
+### Mock Strategy
+Tests use comprehensive mocking to avoid external dependencies:
+- External API calls (OpenAI)
+- Database connections (MongoDB)  
+- File system operations
+- Network requests
